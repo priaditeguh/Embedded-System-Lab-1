@@ -14,6 +14,14 @@ There are two main component in the system that were utilized in this assignment
 
 ![processDSP](image/pool_notify.png)
 
+3. **128-bit SIMD NEON Instruction**. One of the advantages of using NEON is the ability to perform a single multiplication instruction with multiple data. Using this feature, a parallel method was implemented in the system. Since NEON has 128-bit arithmetic SIMD unit and the input is 32-bit integer, there are 4 calculation that can be done simultaneously.
+
+Unlike the normal approach to do the matrix multiplication where it will calculate each element on the result matrix on each iteration, on our implementation, it will calculate the result progressively by maximizing any arithmetic operation that can be done parallel.
+
+4. **Performing Parallel Computing Between DSP and NEON**. In order to improve the performance, another proposed implementation was to combine two of the previous implementation to perform parallel computation. The resources can be utilized and the work can be divided and assigned to NEON and DSP. The first matrix was split into two (one part to DSP and three parts to NEON), and the second matrix was fully copied to DSP side. The results show that it did not make any improvements. This is probably of the implementation which was a challenge. The mechanism of this method is shown below.
+
+![parallel](image/parallel.png)
+
 ### Results ###
 
 The speed and performance of each methods are shown below.
